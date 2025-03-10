@@ -1,7 +1,18 @@
+using BE_Biblioteca.Data;
+using BE_Biblioteca.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<BibliotecaEfCoreDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<BookService>();
 
 var app = builder.Build();
 
