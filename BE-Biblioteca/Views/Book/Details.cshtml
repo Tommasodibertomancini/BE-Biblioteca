@@ -1,0 +1,26 @@
+﻿@using BE_Biblioteca.ViewModel
+@model BookDetailsViewModel
+
+@{
+    ViewData["Title"] = "Dettagli libro";
+}
+
+<h1>Dettagli libro</h1>
+
+<div class="row">
+    <div class="col-4">
+        <img src="@Model.CoverUrl" alt="@Model.Title" />
+    </div>
+    <div class="col-8 d-flex flex-column justify-content-between">
+        <div>
+            <h2>@Model.Title</h2>
+            <h3>@Model.Author</h3>
+            <p>Genere: @Model.Genre</p>
+            <p>Disponibile al prestito: @(Model.Available ? "Si" : "No")</p>
+        </div>
+        <div>
+            <a class="btn btn-sm btn-warning" asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id">Modifica</a>
+            <a class="btn btn-sm btn-danger ms-3" asp-controller="Book" asp-action="Delete" asp-route-id="@Model.Id">Elimina</a>
+        </div>
+     </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@using BE_Biblioteca.ViewModel
+@model BookListViewModel
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>Lista dei libri</h1>
+
+<a class="btn btn-primary" asp-controller="Book" asp-action="Add">Aggiungi un nuovo libro</a>
+
+@if (Model.Books != null && Model.Books.Any())
+{
+    <div class="row">
+        @foreach (var book in Model.Books)
+        {
+            <div class="card col-6">
+                <div class="card-body d-flex">
+                    <img class="bookCover" src="@book.CoverUrl" alt="@book.Title-@book.Author" />
+                    <div class="ms-3">
+                        <h5 class="card-title"><a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id">@book.Title</a></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@book.Author</h6>
+                        <p class="card-text">@book.Genre</p>
+                        <p class="card-text">disponibile: @(book.Available ? "Si" : "No")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}

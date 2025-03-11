@@ -1,0 +1,35 @@
+﻿@using BE_Biblioteca.ViewModel
+@model EditBookViewModel
+
+@{
+    ViewData["Title"] = "Modifica libro";
+}
+
+<h1>Aggiungi un nuovo libro</h1>
+
+<form asp-controller="Book" asp-action="Edit" method="post">
+    <div class="mb-2">
+        <label for="Title" class="form-label">Titolo</label>
+        <input type="text" class="form-control" id="Title" asp-for="Title" required>
+    </div>
+    <div class="mb-2">
+        <label for="Author" class="form-label">Autore</label>
+        <input type="text" class="form-control" id="Author" asp-for="Author" required>
+    </div>
+    <div class="mb-2">
+        <label for="Genre" class="form-label">Genere</label>
+        <input type="text" class="form-control" id="Genre" asp-for="Genre" required>
+    </div>
+    <div class="mb-2">
+        <label for="CoverUrl" class="form-label">URL dell'immagine di copertina</label>
+        <input type="text" class="form-control" id="CoverUrl" asp-for="CoverUrl" required>
+    </div>
+    <div class="mb-2">
+        <label for="Available" class="form-label">Disponibile al prestito?</label>
+        <select class="form-select" id="Disponibile" asp-for="Available" required>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Salva</button>
+</form>
