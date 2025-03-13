@@ -1,0 +1,33 @@
+﻿@model Prestito
+
+@{
+    ViewData["Title"] = "Aggiungi prestito";
+    var libri = ViewBag.BookList as SelectList;
+}
+
+<form asp-controller="Prestiti" asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Username" class="control-label">Nome Utente</label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="UserEmail" class="control-label">Email Utente</label>
+        <input asp-for="UserEmail" class="form-control" />
+        <span asp-validation-for="UserEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="BookId" class="control-label">Libro</label>
+        <select asp-for="BookId" class="form-control" asp-items="@libri"></select>
+        <span asp-validation-for="BookId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group d-flex justify-content-between">
+        <button class="btn btn-primary">Salva</button>
+        <a asp-controller="Prestiti" asp-action="Index" class="btn btn-secondary">Torna all'elenco</a>
+    </div>
+</form>

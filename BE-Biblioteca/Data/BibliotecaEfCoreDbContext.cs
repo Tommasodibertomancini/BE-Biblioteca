@@ -8,5 +8,6 @@ namespace BE_Biblioteca.Data
         public BibliotecaEfCoreDbContext(DbContextOptions<BibliotecaEfCoreDbContext> options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Prestito> Prestiti { get; set; }
     }
 }

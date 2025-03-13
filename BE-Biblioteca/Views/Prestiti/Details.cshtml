@@ -1,0 +1,23 @@
+﻿@model Prestito
+
+@{
+    ViewData["Title"] = "Lista prestiti";
+}
+
+<div>
+    <div>Nome utente: @Model.Username</div>
+    <div>Email utente: @Model.UserEmail</div>
+    <div>Titolo: @Model.Book.Title</div>
+    <div>Scaduto: @(Model.PrestitoScaduto ? "si" : "no")</div>
+    <div>Data prestito: @Model.DataPrestito</div>
+    @if (Model.DataRestituzione == null)
+    {
+        <a asp-route="Edit" asp-route-id="@Model.Id">Modifica</a>
+        <a asp-controller="Prestiti" asp-action="ReturnConfirmed" asp-route-id="@Model.Id">Riconsegna</a>
+        <a asp-controller="Prestiti" asp-action="SendReminder" asp-route-id="@Model.Id">Invia promemoria</a>
+    }
+    else
+    {
+        <div>Data restituzione: @Model.DataRestituzione</div>
+    }
+</div>

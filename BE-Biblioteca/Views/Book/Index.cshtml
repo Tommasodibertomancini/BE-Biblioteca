@@ -7,6 +7,11 @@
 
 <h1>Lista dei libri</h1>
 
+<form method="get" asp-controller="Book" asp-action="Search">
+    <input name="searched" type="text" />
+    <button>Cerca</button>
+</form>
+
 <a class="btn btn-primary" asp-controller="Book" asp-action="Add">Aggiungi un nuovo libro</a>
 
 @if (Model.Books != null && Model.Books.Any())

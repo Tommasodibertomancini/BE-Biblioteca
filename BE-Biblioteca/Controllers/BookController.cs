@@ -6,17 +6,29 @@ namespace BE_Biblioteca.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookService _productService;
+        private readonly BookService _bookService;
 
-        public BookController(BookService productService)
+        public BookController(BookService bookService)
         {
-            _productService = productService;
+            _bookService = bookService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var productList = await _productService.GetBooksAsync();
+            var productList = await _bookService.GetBooksAsync();
             return View(productList);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string searched)
+        {
+            if (string.IsNullOrWhiteSpace(searched))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var books = await _bookService.GetBookBySearchAsync(searched);
+            return View("Index", books);
         }
 
         public IActionResult Add()
@@ -33,7 +45,7 @@ namespace BE_Biblioteca.Controllers
                 return RedirectToAction("Index");
             }
 
-            var result = await _productService.AddBookAsync(addBookViewModel);
+            var result = await _bookService.AddBookAsync(addBookViewModel);
 
             if (!result)
             {
@@ -50,7 +62,7 @@ namespace BE_Biblioteca.Controllers
         [Route("product/details/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var book = await _productService.GetBookByIdAsync(id);
+            var book = await _bookService.GetBookByIdAsync(id);
             if (book == null)
             {
                 return NotFound();
@@ -60,7 +72,7 @@ namespace BE_Biblioteca.Controllers
 
         public async Task<IActionResult> Edit(Guid id)
         {
-            var book = await _productService.GetBookDetailsByIdAsync(id);
+            var book = await _bookService.GetBookDetailsByIdAsync(id);
 
             return View(book);
         }
@@ -73,7 +85,7 @@ namespace BE_Biblioteca.Controllers
                 TempData["Error"] = "Error while saving entity to database";
                 return RedirectToAction("Index");
             }
-            var result = await _productService.UpdateBookByIdAsync(editBookViewModel);
+            var result = await _bookService.UpdateBookByIdAsync(editBookViewModel);
             if (!result)
             {
                 TempData["Error"] = "Error while saving entity to database";
@@ -88,7 +100,7 @@ namespace BE_Biblioteca.Controllers
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            var result = await _productService.DeleteBookByIdAsync(id);
+            var result = await _bookService.DeleteBookByIdAsync(id);
 
             if (!result)
             {

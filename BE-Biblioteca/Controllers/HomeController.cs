@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using BE_Biblioteca.Models;
+using BE_Biblioteca.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE_Biblioteca.Controllers
